@@ -15,7 +15,7 @@
 %	PACKAGES AND THEMES
 %----------------------------------------------------------------------------------------
 
-\documentclass[11pt, xcolor=dvipsnames]{beamer}
+\documentclass[11pt, xcolor=dvipsnames,aspectratio=169]{beamer}
 
 \mode<presentation> {
 
@@ -59,14 +59,14 @@
 %\usecolortheme{albatross}
 %\usecolortheme{beaver}
 %\usecolortheme{beetle}
-%\usecolortheme{crane}
+\usecolortheme{crane}
 %\usecolortheme{dolphin}
 %\usecolortheme{dove}
 %\usecolortheme{fly}
 %\usecolortheme{lily}
 %\usecolortheme{orchid}
 %\usecolortheme{rose}
-\usecolortheme{seagull}
+%\usecolortheme{seagull}
 %\usecolortheme{seahorse}
 
 
@@ -90,12 +90,14 @@
 \usepackage{dirtytalk}
 \changefontsizes{6pt}
 \newcommand{\imagesource}[1]{{\footnotesize $\copyright$ #1}}
+\DeclareMathOperator*{\slim}{s-lim}
+\DeclareMathOperator*{\wlim}{w-lim}
 %------------------------
 ----------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title{String Theory} % The short title appears at the bottom of every slide, the full title is only on the title page
+\title{Path Integrals} % The short title appears at the bottom of every slide, the full title is only on the title page
 
 \author{Nathanael Noir} % Your name
 \institute[University of Vienna] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
@@ -110,6 +112,92 @@ University of Vienna\\ % Your institution for the title page
 
 \begin{frame}
 \titlepage % Print the title page as the first slide
+\end{frame}
+\setbeamercolor{background canvas}{bg=black!100}
+\color{white}
+%------------------------------------------
+\begin{frame}
+Let $\left(A_{n}\right)_{n \in \mathbb{N}}$ be a sequence of bounded operators on $\mathcal{H}$.
+\frametitle{Different Notions of Convergence for Operators}
+\begin{block}{Weak Limit}
+We call $\left(A_{n}\right)_{n \in \mathbb{N}}$ weakly convergent to an operator $A$ if for all $\phi, \psi \in \mathcal{H}$:
+\begin{equation}
+    \lim _{n \rightarrow \infty}\left\langle\phi, A_{n} \psi\right\rangle=\langle\phi, A\, \psi\rangle
+\end{equation}
+
+
+We write $A=\wlim _{n \rightarrow \infty} A_{n}$.
+
+    
+
+
+
+\end{block}
+\begin{alertblock}{Strong Limit}
+We call $(A_n)_{n\in\mathbb{N}}$ strongly convergent to A if for all $\phi \in \mathcal{H}$: 
+\begin{equation}
+\quad \lim _{n \rightarrow \infty} A_{n} \phi=A \phi \quad(\text { with respect to the norm in }\mathcal{H}.)
+\end{equation}
+We write $A=\slim _{n \rightarrow \infty} A_{n}$.
+
+
+\end{alertblock}
+\begin{exampleblock}{Norm-Convergent Limit}
+	 We call $(A_n)_{n \in \mathbb{N}}$ norm-convergent (or convergent in the norm topology) if
+	 \begin{equation}
+	     \lim _{n \rightarrow \infty}\left\|A_{n}-A\right\|=0
+	 \end{equation}
+
+With the usual definition of the operator norm $\left.\|A\|=\sup _{\|\psi\|=1}\|A \psi\|\right$.\\
+\vspace{8}
+We write
+$
+A=\lim_{n \rightarrow \infty} A_{n}.
+$
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{The Trotter Product Formula}
+In fact we have the Trotter product formula :
+Let $A$ and $B$ be self-adjoint operators such that $A+B$ is (esseutially)
+self-adjoint. Then,
+
+\begin{equation}
+e^{i t(A+B)}=\lim _{N \rightarrow \infty}\left(e^{i t A / N} e^{i t B / N}\right)^{N}
+\end{equation}
+
+where $lim$ is understood as a limit in the strong sense.
+Let me prove this for the case when $A$ and $B$ are bounded operators.
+(although this is not the case where one needs to apply it usually). In this case
+the convergence is true even in the operator morm.
+\begin{equation}
+\text { Set } U_{1}=e^{i t(A+B) / N},\;\; U_{2}=e^{i t A / N} e^{i t B / N}
+\end{equation}
+We now want to show that $\lim _{N \rightarrow \infty}\left\|U_{1}^{N}-U_{2}^{N}\right\|=0$.\\
+We can rewrite
+\begin{equation}
+U_{1}^{N}-U_{2}^{N}=U_{1}^{N-1}\left(U_{1}-U_{2}\right)+U_{1}^{N-2}\left(U_{1}-U_{2}\right) U_{2}+\ldots+U_{1}\left(U_{1}-U_{2}\right) U_{2}^{N-2}+\left(U_{1}-U_{2}\right) U_{2}^{N-1}
+\end{equation}
+Therefore
+\begin{equation}
+\left\|U_{1}^{N}-U_{2}^{N}\right\| \leqslant\left\|U_{1}-U_{2}\right\| \sum_{j=1}^{N} {\underbrace{\left\|U_{1}\right\|}_{=1}}^{N-j} \underbrace{\left\|U_{2}\right\|^{j}}_{=1}=N\left\|U_{1}-U_{2}\right\| 
+\end{equation}
+ Now 
+\begin{equation}
+    U_{1}=Id+\frac{i t}{N}(A+B)+\mathcal{O}\left(\frac{1}{N^{2}}\right)
+\end{equation}
+and also
+\begin{equation}
+    U_{2}=Id+\frac{i t}{N}(A+B)+\mathcal{O}\left(\frac{1}{N^{2}}\right)
+\end{equation}
+hence,
+\begin{equation}
+\left\|U_{1}-U_{2}\right\|-\mathcal{O}\left(\frac{1}{N^{2}}\right) \text { and } N\left\|U_{1}-U_{2}\right\| \rightarrow 0
+\end{equation}
+    
+    
+    
+    
 \end{frame}
 \begin{frame}
 \frametitle{The \(\mathbb{R}^{1}/ \mathbb{Z}_{2}\) Orbifold}
@@ -371,27 +459,43 @@ with \(\varphi_{i}\) denoting the angle relative to the \(i\)-th axis and \(0 \l
 
 %------------------------------------------
 \begin{frame}
-\frametitle{3 Definitions of Energy-Momentum Tensor}
-\begin{block}{Canonical Energy-Momentum Tensor \(\Theta_{\nu}^{\mu}(x)\)}
-	Noether's theorem implies that there is a conserved current associated with translations through space and time.
-	\begin{equation}
-\Theta_{\nu}^{\mu}=\frac{\partial \mathcal{L}(x)}{\partial\left(\partial_{\mu} \phi_{n}\right)} \frac{\partial \phi_{n}(x)}{\partial x^{\nu}}-\delta_{\nu}^{\mu} \mathcal{L}(x).
-\end{equation}
-	   In the presence of spin the canonical energy-momentum tensor fails to be symmetric. It's also not necessary gauge invariant.
-\end{block}
-\begin{alertblock}{Hilbert Energy-Momentum Tensor \(T_{\mu}_{\nu}(x)\)}
-The Hilbert energy-momentum is defined as follows:
+Let $\left(A_{n}\right)_{n \in \mathbb{N}}$ be a sequence of bounded operators on $\mathcal{H}$
+\frametitle{Different Notions of Convergence for Operators}
+\begin{block}{Weak Limit}
+We call $\left(A_{n}\right)_{n \in \mathbb{N}}$ weakly convergent to an operator $A$ if for all $\phi, \psi \in \mathcal{H}$:
 \begin{equation}
-T_{\mu}_{\nu}=\frac{-2}{\sqrt{-g}} \frac{\partial\left(\sqrt{-g} \mathcal{L}_{\text {matter }}\right)}{\partial g^{\mu \nu}}.
+    \lim _{n \rightarrow \infty}\left\langle\phi, A_{n} \psi\right\rangle=\langle\phi, A \psi\rangle
 \end{equation}
-where \(\mathcal{L}_{\text {matter }}\) is the non-gravitational part of the Lagrangian density. This tensor is symmetric and gauge-invariant.
+
+
+We write $A=\wlim _{n \rightarrow \infty} A_{n}$.
+
+    
+
+
+
+\end{block}
+\begin{alertblock}{Strong Limit}
+We call $(A_n)_{n\in\mathbb{N}}$ strongly convergent to A if for all $\phi \in \mathcal{H}$: 
+\begin{equation}
+\quad \lim _{n \rightarrow \infty} A_{n} \phi=A \phi \quad(\text { with respect to the norm in }\mathcal{H})
+\end{equation}
+We write $A=\slim _{n \rightarrow \infty} A_{n}$.
+
+
 \end{alertblock}
-\begin{exampleblock}{Belinfante-Rosenfeld \(\theta^{\mu \nu}(x)\)}
-	 The Belinfante-Rosenfeld stress energy tensor is constructed from the canonical stress-energy tensor and the spin current in such a way as to be symmetric and still conserved. 
+\begin{exampleblock}{Norm-Convergent Limit}
+	 We call $(A_n)_{n \in \mathbb{N}}$ norm-convergent (or convergent in the norm topology) if
 	 \begin{equation}
-\theta^{\mu \nu}=\Theta^{\mu \nu}+\partial_{\alpha} f^{\alpha \mu \nu}.
-\end{equation}
-	 In general relativity, this tensor agrees with the Hilbert energy-momentum tensor.
+	     \lim _{n \rightarrow \infty}\left\|A_{n}-A\right\|=0
+	 \end{equation}
+
+With the usual dufinition of the operator worm $\left.\|A\|=\sup _{\|\psi\|=1}\|A \psi\|\right$.\\
+\vspace{8}
+We write
+$
+A=\lim_{n \rightarrow \infty} A_{n}.
+$
 \end{exampleblock}
 \end{frame}
 
@@ -498,4 +602,25 @@ Even though L'Hopital's rule applies to this limit, it unfortunately doesn't yie
         \boxed{\ell_0 = \frac{1+\int_0^1 x^{-x} \,dx}{e}}
     \end{equation}
 \end{frame}
+\begin{frame}
+When calculating a part of the trace for the partition function of the fermionic Ramond-sector in light-cone coordinates, I'd like to understand how we get to the result \(\left(\frac{\theta \left[1/2;0\right](0,\tau)}{\eta (\tau)} \right)^4\). My problem is that I get a global \(q^{1/4}\) for which I don't know how it should be compensated:
+\begin{eqnarray}
+Tr_R(q^{L_0}) = q^{8/24} Tr_R\left[ q^{\frac{1}{2}\sum_{I=2}^9\sum_{r\in \mathbb{Z}}r:\psi_{-r}^I\psi_{r}^I:}\right] = \\
+q^{8/24} \prod_{r\in \mathbb{N}} (1+q^r)^8 = \frac{q^{12/24}}{(\eta (\tau ))^4} \prod_{r\in \mathbb{N}} (1-q^r)^4 (1+q^r)^8 =\\
+= q^{1/4} \left(\frac{\theta \left[1/2;0\right](0,\tau)}{\eta (\tau)} \right)^4
+\end{eqnarray}
+\end{frame}
+\begin{frame}
+    Thank you for your answer. I fortunately already found the mistakes in my computation: \\ \\
+1) From the second to the third line I simply misinterpreted the identities for the \(\theta \)-functions.\\ \\
+2) I forgot the \(\sqrt{2}\) contribution, which would've also lead to the identity you used.\\ \\
+As a remark: \\
+Regarding 1.:\\
+My central charges in the computation are chosen correctly, I omitted the argument how I got to \(q^{8/24}\), which is the same as the \(q^{1/3}\) that you end up with in your calculation, because \(1/16-1/48 = 1/24\). The reason for my \(1/24\) exponent is that I derived it directly from regularizing \(L_0\) when implementing normal ordering ,which doesn't distinguish the contributions coming from conformality and the Ramond-sector.\\ \\ 
+Regarding 2.:\\
+The \(1-q^r\) doesn't come from the contributions of the trace, it's just the part that cancels out the \(\eta\) term I added on the right side of our second line. You can then apply the product expansions of the \(\theta \)-functions to see that this is correct.\\ \\
+Regarding 3.:\\
+It is true that I do not take the conformal factor into account explicitly, but it already contributes as stated in "Regarding 1".
+\end{frame}
+
 \end{document} 
